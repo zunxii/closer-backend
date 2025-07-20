@@ -1,2 +1,61 @@
-.env
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folders
 venv/
+env/
+
+# VS Code settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# macOS system files
+.DS_Store
+
+# Python environment & dependency tracking
+*.egg-info/
+.eggs/
+*.egg
+
+# Logs
+*.log
+
+# Test cache
+.pytest_cache/
+.coverage
+.tox/
+htmlcov/
+
+# Environment variables
+.env
+.env.*
+
+# Migrations (if using Alembic or similar)
+migrations/
+
+# SQLite / DB files
+*.sqlite3
+*.db
+
+# FastAPI static/media (if dynamically created)
+static/
+media/
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Build artifacts
+build/
+dist/
+*.spec
+
+# mypy type checker
+.mypy_cache/
+
+# Pylint, Ruff, and other lint tools
+.pylint.d/
+ruff_cache/
