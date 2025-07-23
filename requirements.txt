@@ -9,3 +9,7 @@ requests
 soundfile
 tqdm
 python-multipart
+torch
+torchvision
+pillow
+open_clip_torch
