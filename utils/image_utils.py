@@ -2,7 +2,10 @@ import os
 import tempfile
 import shutil
 from pathlib import Path
+import base64
 from typing import Generator
+from typing import List
+import re
 
 def create_temp_directory() -> str:
     """Create a temporary directory for processing"""
@@ -24,6 +27,21 @@ def ensure_directory_exists(directory: str) -> None:
     """Ensure directory exists, create if not"""
     os.makedirs(directory, exist_ok=True)
 
+def extract_frame_number(filename: str) -> int:
+    """Extract frame number from filename"""
+    match = re.search(r"(\d+)", filename)
+    return int(match.group(1)) if match else 0
+
+def get_sorted_image_files(folder: str, max_files: int = None) -> List[str]:
+    """Get sorted list of image files from folder"""
+    import os
+    files = [f for f in os.listdir(folder) if f.lower().endswith((".jpg", ".png"))]
+    sorted_files = sorted(files, key=extract_frame_number)
+    
+    if max_files:
+        return sorted_files[:max_files]
+    return sorted_files
+
 def read_in_chunks(data: bytes, chunk_size: int = 5242880) -> Generator[bytes, None, None]:
     """Read data in chunks for streaming"""
     for i in range(0, len(data), chunk_size):
@@ -40,3 +58,8 @@ def is_image_file(filename: str) -> bool:
 def is_video_file(filename: str) -> bool:
     """Check if file is a video"""
     return get_file_extension(filename) in ['.mp4', '.avi', '.mov', '.mkv', '.wmv']
+
+def image_to_base64(path: str) -> str:
+    """Convert image file to base64 string"""
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode("utf-8")

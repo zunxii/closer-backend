@@ -9,6 +9,7 @@ from utils.text_utils import clean_json_text, normalize_word
 
 class FrameAnalyzer:
     def __init__(self):
+        self.config = Config()
         self.client = openai.Client(api_key=Config.OPENAI_API_KEY)
         self.model = Config.OPENAI_MODEL
         self.temperature = Config.OPENAI_TEMPERATURE

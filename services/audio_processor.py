@@ -11,14 +11,14 @@ import io
 import soundfile as sf
 import numpy as np
 from typing import Generator, List, Dict, Any
-from config import ASSEMBLYAI_API_KEY
+from config import Config
 
 
 class AudioProcessor:
     """Handles audio processing operations for video files."""
     
     def __init__(self):
-        self.assemblyai_api_key = ASSEMBLYAI_API_KEY
+        self.assemblyai_api_key = Config.ASSEMBLYAI_API_KEY
         self.upload_endpoint = "https://api.assemblyai.com/v2/upload"
         self.transcript_endpoint = "https://api.assemblyai.com/v2/transcript"
         self.chunk_size = 5242880  # 5MB chunks

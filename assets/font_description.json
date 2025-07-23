@@ -1,0 +1,124 @@
+{
+  "fonts": [
+    {
+      "name": "Poppins Regular",
+      "prompt": "Poppins Regular – a clean, geometric sans-serif font with modern proportions and evenly rounded letters, ideal for subtitles."
+    },
+    {
+      "name": "Poppins Bold",
+      "prompt": "Poppins Bold – a heavier, more pronounced version of Poppins with thick strokes and consistent geometry, great for emphasizing text."
+    },
+    {
+      "name": "Poppins Black",
+      "prompt": "Poppins Black – ultra-bold and dense with strong presence, suitable for striking emphasis in headings or dramatic subtitles."
+    },
+    {
+      "name": "Poppins Thin Italic",
+      "prompt": "Poppins Thin Italic – an elegant, ultra-light and slanted version of Poppins with graceful curves and delicate line weight."
+    },
+    {
+      "name": "Roboto Regular",
+      "prompt": "Roboto Regular – a neutral, legible sans-serif with a mechanical skeleton and friendly curves, ideal for clear subtitle readability."
+    },
+    {
+      "name": "Roboto Bold",
+      "prompt": "Roboto Bold – a strong, sturdy sans-serif with modern lines and high readability, commonly used in impactful titles."
+    },
+    {
+      "name": "Roboto Light Italic",
+      "prompt": "Roboto Light Italic – lightweight and softly slanted with graceful transitions, perfect for secondary or quoted text in subtitles."
+    },
+    {
+      "name": "Montserrat Regular",
+      "prompt": "Montserrat Regular – a modern sans-serif inspired by urban signage, featuring slightly wide letterforms and a clean, technical look."
+    },
+    {
+      "name": "Montserrat SemiBold",
+      "prompt": "Montserrat SemiBold – slightly thicker than regular with strong yet refined strokes, giving subtitles more presence without overwhelming."
+    },
+    {
+      "name": "Montserrat ExtraBold",
+      "prompt": "Montserrat ExtraBold – very thick and bold, conveying urgency or strong emphasis, with sharp terminal ends."
+    },
+    {
+      "name": "Lato Regular",
+      "prompt": "Lato Regular – a humanist sans-serif with semi-rounded letterforms and a warm yet professional feel, ideal for balanced typography."
+    },
+    {
+      "name": "Lato Black Italic",
+      "prompt": "Lato Black Italic – very bold and stylishly slanted with slightly rounded terminals, offering a strong modern flair."
+    },
+    {
+      "name": "Lato Light",
+      "prompt": "Lato Light – thin and airy with soft curves, suitable for subtle subtitles or minimalist design aesthetics."
+    },
+    {
+      "name": "Open Sans Regular",
+      "prompt": "Open Sans Regular – a highly legible sans-serif font with open counters and neutral curves, optimized for both web and video."
+    },
+    {
+      "name": "Open Sans Bold",
+      "prompt": "Open Sans Bold – clear and commanding, yet friendly in tone; ideal for visible, clean subtitle overlays."
+    },
+    {
+      "name": "Inter Medium",
+      "prompt": "Inter Medium – a workhorse sans-serif font with excellent spacing and rhythm, designed for modern screens and UI subtitles."
+    },
+    {
+      "name": "Inter ExtraBold",
+      "prompt": "Inter ExtraBold – extremely bold with tight kerning and high contrast, perfect for attention-grabbing text."
+    },
+    {
+      "name": "Raleway Regular",
+      "prompt": "Raleway Regular – a stylish, elegant sans-serif with tall letterforms and thin strokes, suitable for modern cinematic subtitles."
+    },
+    {
+      "name": "Raleway Heavy",
+      "prompt": "Raleway Heavy – a dramatic weight of the Raleway family with bold elegance, often used in title sequences or captions."
+    },
+    {
+      "name": "Nunito Regular",
+      "prompt": "Nunito Regular – a well-balanced sans-serif font with rounded terminals and soft structure, giving a friendly, clean look."
+    },
+    {
+      "name": "Nunito ExtraBold",
+      "prompt": "Nunito ExtraBold – bold and playful with wide curves, providing high visual impact while retaining approachability."
+    },
+    {
+      "name": "Playfair Display Regular",
+      "prompt": "Playfair Display Regular – a transitional serif font with classic styling and high contrast, suitable for elegant or artistic subtitles."
+    },
+    {
+      "name": "Playfair Display Black",
+      "prompt": "Playfair Display Black – bold and ornate with sharp serifs and dramatic contrast, perfect for high-end, expressive overlays."
+    },
+    {
+      "name": "Merriweather Regular",
+      "prompt": "Merriweather Regular – a serif font designed for readability on screens, with a slightly condensed shape and soft curves."
+    },
+    {
+      "name": "Merriweather Bold Italic",
+      "prompt": "Merriweather Bold Italic – strong and expressive with slanted traditional serifs, useful for classic but assertive subtitle text."
+    },
+    {
+      "name": "Oswald Regular",
+      "prompt": "Oswald Regular – a reworked gothic-style font with narrow width and tall letterforms, creating tight and clear subtitles."
+    },
+    {
+      "name": "Oswald Heavy",
+      "prompt": "Oswald Heavy – thick and compressed with minimal spacing, delivering dramatic, punchy text in subtitle overlays."
+    },
+    {
+      "name": "Fira Sans Regular",
+      "prompt": "Fira Sans Regular – a versatile sans-serif font with clean lines and solid readability, well-suited for UI and caption use."
+    },
+    {
+      "name": "Fira Sans Bold Italic",
+      "prompt": "Fira Sans Bold Italic – bold with dynamic slant and smooth curves, perfect for highlighting speaker emphasis or quoted dialogue."
+    },
+    {
+      "name": "Source Sans Pro Regular",
+      "prompt": "Source Sans Pro Regular – a professional, open-source sans-serif with high clarity, tailored for interface and subtitle work."
+    }
+  ]
+}

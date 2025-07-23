@@ -1,105 +1,73 @@
-"""
-Main orchestrator class for video subtitle processing.
-Coordinates all processing steps and manages the complete pipeline.
-"""
-
 import os
-import tempfile
-import shutil
 from typing import List, Dict, Any
 
-from services.frame_extractor import extract_frames
-from services.frame_analyzer import analyze_frames
-from services.duplicate_filter import filter_duplicate_frames
-from services.style_clusterer import cluster_styles
-from services.audio_processor import process_video_audio
-from services.sentence_splitter import split_into_sentences
-from services.word_styler import style_words, apply_template_styles
-from services.ass_generator import process_chunking, generate_ass_file
+from config import Config
+from services.local_frame_analyzer import LocalFrameAnalyzer
+from utils.file_utils import (
+    create_temp_directory,
+    cleanup_temp_directory,
+    ensure_directory_exists,
+    save_uploaded_file
+)
+
+from services.frame_extractor import FrameExtractor
+from services.frame_analyzer import FrameAnalyzer
+from services.duplicate_filter import DuplicateFilter
+from services.style_clusterer import StyleClusterer
+from services.audio_processor import AudioProcessor
+from services.sentence_splitter import SentenceSplitter
+from services.word_styler import WordStyler
+from services.ass_generator import SubtitleGenerator
+from services.instagram_downloader import InstagramVideoDownloader
 
 
 class VideoSubtitleProcessor:
-    """
-    Main processor class that orchestrates the complete video subtitle processing pipeline.
-    """
-    
     def __init__(self):
-        """Initialize the processor."""
-        self.temp_dir = None
-        self.frames_dir = None
-        
-    def _setup_temp_directory(self) -> str:
-        """
-        Create temporary directory for processing.
-        
-        Returns:
-            str: Path to temporary directory
-        """
-        self.temp_dir = tempfile.mkdtemp()
+        self.temp_dir = create_temp_directory()
         self.frames_dir = os.path.join(self.temp_dir, "frames")
-        return self.temp_dir
-    
-    def _cleanup_temp_directory(self):
-        """Clean up temporary directory."""
-        if self.temp_dir:
-            try:
-                shutil.rmtree(self.temp_dir)
-            except Exception as cleanup_error:
-                print(f"⚠️ Warning: Could not clean up temp directory: {cleanup_error}")
-    
-    def _save_uploaded_files(self, reference_video, input_video) -> tuple:
-        """
-        Save uploaded files to temporary directory.
-        
-        Args:
-            reference_video: Reference video file object
-            input_video: Input video file object
-            
-        Returns:
-            tuple: (reference_video_path, input_video_path)
-        """
-        ref_video_path = os.path.join(self.temp_dir, "reference.mp4")
-        input_video_path = os.path.join(self.temp_dir, "input.mp4")
-        
-        with open(ref_video_path, "wb") as f:
-            shutil.copyfileobj(reference_video.file, f)
-        
-        with open(input_video_path, "wb") as f:
-            shutil.copyfileobj(input_video.file, f)
-            
-        return ref_video_path, input_video_path
-    
+        ensure_directory_exists(self.frames_dir)
+
+        # Load font descriptions from config
+        raw_fonts = Config.FONT_DESCRIPTION.get("fonts", [])
+        font_descriptions = {font["name"]: font["prompt"] for font in raw_fonts}
+
+        # Initialize service classes
+        self.frame_extractor = FrameExtractor()
+        self.frame_analyzer = LocalFrameAnalyzer(font_descriptions) 
+        self.duplicate_filter = DuplicateFilter()
+        self.style_clusterer = StyleClusterer()
+        self.audio_processor = AudioProcessor()
+        self.sentence_splitter = SentenceSplitter()
+        self.word_styler = WordStyler()
+        self.subtitle_generator = SubtitleGenerator()
+        self.instagram_downloader = InstagramVideoDownloader()
+
+
+    def _download_reference_video(self, reference_url: str) -> str:
+        ref_path = os.path.join(self.temp_dir, "reference.mp4")
+        print(" Step 0: Downloading reference video from Instagram...")
+        self.instagram_downloader.download(reference_url, ref_path)
+        return ref_path
+
+    def _save_input_video(self, input_video) -> str:
+        input_path = os.path.join(self.temp_dir, "input.mp4")
+        save_uploaded_file(input_video, input_path)
+        return input_path
+
     def _extract_styles_from_reference(self, ref_video_path: str) -> List[Dict[str, Any]]:
-        """
-        Extract styles from reference video.
-        
-        Args:
-            ref_video_path: Path to reference video
-            
-        Returns:
-            List[Dict]: List of extracted styles
-        """
-        print("🔄 Step 1: Extracting frames from reference video...")
-        frame_count = extract_frames(ref_video_path, self.frames_dir, target_fps=2)
-        
-        print("🔄 Step 2: Analyzing frames for styles...")
-        all_frames = analyze_frames(self.frames_dir, max_frames=85)
-        
-        print("🔄 Step 3: Filtering duplicate frames...")
-        filtered_frames = filter_duplicate_frames(all_frames)
-        
-        print("🔄 Step 4: Clustering styles...")
-        ranked_styles = cluster_styles(filtered_frames)
-        
-        return ranked_styles
-    
+        print(" Step 1: Extracting frames from reference video...")
+        self.frame_extractor.extract_frames(ref_video_path, self.frames_dir)
+
+        print(" Step 2: Analyzing frames for styles...")
+        all_frames = self.frame_analyzer.analyze_frames(self.frames_dir, max_frames=Config.MAX_FRAMES)
+
+        print(" Step 3: Filtering duplicate frames...")
+        filtered_frames = self.duplicate_filter.filter_duplicate_frames(all_frames)
+
+        print(" Step 4: Clustering styles...")
+        return self.style_clusterer.cluster_styles(filtered_frames)
+
     def _create_default_styles(self) -> List[Dict[str, Any]]:
-        """
-        Create default styles if no styles are extracted.
-        
-        Returns:
-            List[Dict]: List of default styles
-        """
         return [{
             "name": "style1",
             "fontname": "Arial",
@@ -110,103 +78,50 @@ class VideoSubtitleProcessor:
             "outline": 1,
             "shadow": 0
         }]
-    
-    def _process_input_video_audio(self, input_video_path: str) -> List[Dict[str, Any]]:
-        """
-        Process audio from input video.
-        
-        Args:
-            input_video_path: Path to input video
-            
-        Returns:
-            List[Dict]: Enhanced transcription with energy values
-        """
-        print("🔄 Step 5: Processing audio from input video...")
-        transcription = process_video_audio(input_video_path)
-        
-        print("🔄 Step 6: Splitting into sentences...")
-        sentences = split_into_sentences(transcription)
-        
-        return sentences
-    
-    def _style_and_chunk_words(
-        self, 
-        sentences: List[Dict[str, Any]], 
-        num_styles: int
-    ) -> List[Dict[str, Any]]:
-        """
-        Style words and chunk them for subtitles.
-        
-        Args:
-            sentences: List of sentence objects
-            num_styles: Number of available styles
-            
-        Returns:
-            List[Dict]: Chunked subtitle segments
-        """
-        print("🔄 Step 7: Styling words...")
-        styled_sentences = style_words(sentences, num_styles)
-        
-        print("🔄 Step 8: Applying template styles...")
-        styled_with_templates = apply_template_styles(
+
+    def _process_audio(self, input_video_path: str) -> List[Dict[str, Any]]:
+        print(" Step 5: Processing audio from input video...")
+        transcription = self.audio_processor.process_video_audio(input_video_path)
+
+        print(" Step 6: Splitting into sentences...")
+        return self.sentence_splitter.split_into_sentences(transcription)
+
+    def _style_and_chunk_words(self, sentences, num_styles) -> List[Dict[str, Any]]:
+        print(" Step 7: Styling words...")
+        styled_sentences = self.word_styler.style_words(sentences, num_styles)
+
+        print(" Step 8: Applying template styles...")
+        styled_with_templates = self.word_styler.apply_template_styles(
             styled_sentences,
             total_styles=num_styles,
-            threshold=0.15,
-            default_style=f"style{num_styles}"
+            threshold=Config.STYLE_THRESHOLD,
+            default_style=Config.DEFAULT_STYLE_NAME
         )
-        
-        print("🔄 Step 9: Chunking words...")
-        chunked_output = process_chunking(styled_with_templates)
-        
-        return chunked_output
-    
-    def process_videos(self, reference_video, input_video) -> str:
-        """
-        Process two videos and return ASS subtitle content.
-        
-        Args:
-            reference_video: Reference video file object for style extraction
-            input_video: Input video file object for transcription
-            
-        Returns:
-            str: ASS subtitle file content
-            
-        Raises:
-            Exception: If processing fails
-        """
+
+        print(" Step 9: Chunking words...")
+        return self.subtitle_generator.process_chunking(styled_with_templates)
+
+    def process(self, reference_url: str, input_video) -> str:
         try:
-            # Setup temporary directory
-            self._setup_temp_directory()
-            
-            # Save uploaded files
-            ref_video_path, input_video_path = self._save_uploaded_files(
-                reference_video, input_video
-            )
-            
-            # Extract styles from reference video
+            ref_video_path = self._download_reference_video(reference_url)
+            input_video_path = self._save_input_video(input_video)
+
             ranked_styles = self._extract_styles_from_reference(ref_video_path)
-            
-            # Create default styles if none found
             if not ranked_styles:
                 ranked_styles = self._create_default_styles()
-            
-            # Process input video audio
-            sentences = self._process_input_video_audio(input_video_path)
-            
-            # Style and chunk words
+
+            sentences = self._process_audio(input_video_path)
             chunked_output = self._style_and_chunk_words(sentences, len(ranked_styles))
-            
-            # Generate ASS file
-            print("🔄 Step 10: Generating ASS file...")
-            ass_content = generate_ass_file(chunked_output, ranked_styles)
-            
+
+            print(" Step 10: Generating ASS file...")
+            ass_content = self.subtitle_generator.generate_ass_file(chunked_output, ranked_styles)
+
             print("✅ Processing complete!")
             return ass_content
-            
+
         except Exception as e:
             print(f"❌ Error during processing: {e}")
             raise Exception(f"Processing failed: {str(e)}")
-        
+
         finally:
-            # Clean up temporary directory
-            self._cleanup_temp_directory()
+            cleanup_temp_directory(self.temp_dir)
