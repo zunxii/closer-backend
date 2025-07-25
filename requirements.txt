@@ -13,3 +13,4 @@ torch
 torchvision
 pillow
 open_clip_torch
+easyocr

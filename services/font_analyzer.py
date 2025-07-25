@@ -32,7 +32,7 @@ class FontAnalyzer:
         )
 
         response = self.client.chat.completions.create(
-            model="gpt-4-vision-preview",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a font analysis assistant."},
                 {
@@ -43,7 +43,7 @@ class FontAnalyzer:
                     ],
                 },
             ],
-            max_tokens=500
+            max_tokens=2500
         )
 
         return response.choices[0].message.content

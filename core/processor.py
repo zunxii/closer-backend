@@ -11,7 +11,7 @@ from utils.file_utils import (
 )
 
 from services.frame_extractor import FrameExtractor
-from services.frame_analyzer import FrameAnalyzer
+# from services.frame_analyzer import FrameAnalyzer
 from services.duplicate_filter import DuplicateFilter
 from services.style_clusterer import StyleClusterer
 from services.audio_processor import AudioProcessor

@@ -18,7 +18,7 @@ class Config:
 
     OPENAI_MODEL = "gpt-4o"
     OPENAI_TEMPERATURE = 0.2
-    OPENAI_MAX_TOKENS = 1200
+    OPENAI_MAX_TOKENS = 2500
 
     ASSEMBLYAI_UPLOAD_URL = "https://api.assemblyai.com/v2/upload"
     ASSEMBLYAI_TRANSCRIPT_URL = "https://api.assemblyai.com/v2/transcript"
