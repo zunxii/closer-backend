@@ -19,7 +19,7 @@ class FontAnalyzer:
             "For each visible text block, return a JSON object in this structure:\n\n"
         "{\n"
         '  "text": "<unknown>",\n'
-        '  "fontname": top_font,\n'
+        '  "fontname": "top_font",\n'
         '  "fontsize": 48,\n'
         '  "primary_colour": "#FFFFFF",\n'
         '  "bold": -1 if "Bold" in top_font else 0,\n'
@@ -27,7 +27,7 @@ class FontAnalyzer:
         '  "outline": 1,\n'
         '  "shadow": 0,\n'
         '  "relative_position": [1, 1],\n'
-        '  "confidence": confidence\n'
+        '  "confidence": "confidence"\n'
         "}"
         )
 
@@ -60,4 +60,3 @@ class FontAnalyzer:
                 except Exception as e:
                     print(f"Error analyzing {filename}: {e}")
         return results
-

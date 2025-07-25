@@ -19,13 +19,17 @@ from services.sentence_splitter import SentenceSplitter
 from services.word_styler import WordStyler
 from services.ass_generator import SubtitleGenerator
 from services.instagram_downloader import InstagramVideoDownloader
+from services.text_style_analyzer import TextStyleAnalyzer
+from services.font_analyzer import FontAnalyzer
 
 
 class VideoSubtitleProcessor:
     def __init__(self):
         self.temp_dir = create_temp_directory()
         self.frames_dir = os.path.join(self.temp_dir, "frames")
+        self.cropped_words_dir = os.path.join(self.temp_dir, "cropped_words")
         ensure_directory_exists(self.frames_dir)
+        ensure_directory_exists(self.cropped_words_dir)
 
         # Load font descriptions from config
         raw_fonts = Config.FONT_DESCRIPTION.get("fonts", [])
@@ -41,6 +45,17 @@ class VideoSubtitleProcessor:
         self.word_styler = WordStyler()
         self.subtitle_generator = SubtitleGenerator()
         self.instagram_downloader = InstagramVideoDownloader()
+        
+        # Initialize new analyzers
+        self.text_style_analyzer = TextStyleAnalyzer(
+            frame_dir=self.frames_dir, 
+            output_dir=self.cropped_words_dir
+        )
+        # Initialize FontAnalyzer with API key from config
+        openai_api_key = getattr(Config, 'OPENAI_API_KEY', None)
+        if not openai_api_key:
+            raise ValueError("OPENAI_API_KEY not found in config")
+        self.font_analyzer = FontAnalyzer(openai_api_key)
 
 
     def _download_reference_video(self, reference_url: str) -> str:
@@ -54,18 +69,25 @@ class VideoSubtitleProcessor:
         save_uploaded_file(input_video, input_path)
         return input_path
 
+    def _extract_and_analyze_text_styles(self) -> Dict[str, Any]:
+        """Extract words from frames and analyze their styles"""
+        print(" Step 2: Extracting text from frames...")
+        self.text_style_analyzer.extract_words()
+        
+        print(" Step 3: Analyzing text styles with OpenAI...")
+        font_analysis_results = self.font_analyzer.analyze_folder(self.cropped_words_dir)
+        
+        return font_analysis_results
+
     def _extract_styles_from_reference(self, ref_video_path: str) -> List[Dict[str, Any]]:
         print(" Step 1: Extracting frames from reference video...")
         self.frame_extractor.extract_frames(ref_video_path, self.frames_dir)
 
-        print(" Step 2: Analyzing frames for styles...")
-        all_frames = self.frame_analyzer.analyze_frames(self.frames_dir, max_frames=Config.MAX_FRAMES)
-
-        print(" Step 3: Filtering duplicate frames...")
-        filtered_frames = self.duplicate_filter.filter_duplicate_frames(all_frames)
+        # New integrated steps 2 and 3
+        font_analysis_results = self._extract_and_analyze_text_styles()
 
         print(" Step 4: Clustering styles...")
-        return self.style_clusterer.cluster_styles(filtered_frames)
+        return self.style_clusterer.cluster_styles(font_analysis_results)
 
     def _create_default_styles(self) -> List[Dict[str, Any]]:
         return [{
