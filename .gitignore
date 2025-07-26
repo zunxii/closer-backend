@@ -59,3 +59,5 @@ dist/
 # Pylint, Ruff, and other lint tools
 .pylint.d/
 ruff_cache/
+
+.mp4
