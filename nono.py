@@ -1,26 +1,19 @@
-import os
-from openai import OpenAI
+import subprocess
 
-# Initialize the OpenAI client with your API key
-client = OpenAI(api_key="")  # Replace with your key
+def add_ass_subtitles(input_video, subtitle_file, output_video):
+    command = [
+        "ffmpeg",
+        "-i", input_video,
+        "-vf", f"ass={subtitle_file}",
+        "-c:a", "copy",  # copy audio without re-encoding
+        output_video
+    ]
 
-def get_sum_from_openai(a, b):
-    prompt = f"Add the two numbers and return only the result: {a} + {b}"
+    try:
+        subprocess.run(command, check=True)
+        print(f"✅ Subtitles added successfully: {output_video}")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Error applying subtitles:\n{e}")
 
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0
-    )
-
-    result = response.choices[0].message.content.strip()
-    return result
-
-if __name__ == "__main__":
-    num1 = int(input("Enter first number: "))
-    num2 = int(input("Enter second number: "))
-
-    result = get_sum_from_openai(num1, num2)
-    print(f"Result from GPT-4o: {result}")
+# Example usage
+add_ass_subtitles("video.mp4", "sub.ass", "output_with_subs.mp4")

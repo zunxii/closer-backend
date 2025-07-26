@@ -1,0 +1,82 @@
+[Script Info]
+Title: Styled Subtitles
+ScriptType: v4.00+
+Collisions: Normal
+PlayResY: 720
+PlayResX: 1280
+Timer: 100.0000
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, Bold, Italic, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+
+Style: style1,Luckiest Guy,24,&HFFFFFF,1,0,1,1,2,10,10,10,1
+Style: style2,Impact,24,&HFFFFFF,1,0,0,1,2,10,10,10,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.08,0:00:00.24,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}Your
+Dialogue: 0,0:00:00.24,0:00:00.64,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}stamina
+Dialogue: 0,0:00:00.64,0:00:00.92,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}in {\fnImpact\fs24\c&HFFFFFF\shad1}the
+Dialogue: 0,0:00:00.92,0:00:01.52,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}streets
+Dialogue: 0,0:00:01.68,0:00:02.00,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}should
+Dialogue: 0,0:00:02.00,0:00:02.24,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}match
+Dialogue: 0,0:00:02.24,0:00:02.44,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}your
+Dialogue: 0,0:00:02.44,0:00:02.76,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}stamina
+Dialogue: 0,0:00:02.76,0:00:03.00,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}in {\fnImpact\fs24\c&HFFFFFF\shad1}the
+Dialogue: 0,0:00:03.00,0:00:03.36,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}sheets.
+Dialogue: 0,0:00:03.76,0:00:04.60,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}When {\fnImpact\fs24\c&HFFFFFF\shad1}it {\fnImpact\fs24\c&HFFFFFF\shad1}comes {\fnImpact\fs24\c&HFFFFFF\shad1}to
+Dialogue: 0,0:00:04.60,0:00:04.88,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}performance,
+Dialogue: 0,0:00:05.12,0:00:06.36,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}I {\fnImpact\fs24\c&HFFFFFF\shad1}believe {\fnImpact\fs24\c&HFFFFFF\shad1}in {\fnImpact\fs24\c&HFFFFFF\shad1}the {\fnImpact\fs24\c&HFFFFFF\shad1}inside
+Dialogue: 0,0:00:06.36,0:00:06.80,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}out {\fnImpact\fs24\c&HFFFFFF\shad1}approach
+Dialogue: 0,0:00:07.36,0:00:08.48,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}and {\fnImpact\fs24\c&HFFFFFF\shad1}for {\fnImpact\fs24\c&HFFFFFF\shad1}the {\fnImpact\fs24\c&HFFFFFF\shad1}long {\fnImpact\fs24\c&HFFFFFF\shad1}games
+Dialogue: 0,0:00:08.48,0:00:09.68,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}I {\fnImpact\fs24\c&HFFFFFF\shad1}have {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}been {\fnImpact\fs24\c&HFFFFFF\shad1}taking {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}Dura
+Dialogue: 0,0:00:09.68,0:00:11.36,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}excellivate {\fnImpact\fs24\c&HFFFFFF\shad1}performer {\fnImpact\fs24\c&HFFFFFF\shad1}capsules {\fnImpact\fs24\c&HFFFFFF\shad1}GE.
+Dialogue: 0,0:00:11.60,0:00:13.36,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}It's {\fnImpact\fs24\c&HFFFFFF\shad1}made {\fnImpact\fs24\c&HFFFFFF\shad1}with {\fnImpact\fs24\c&HFFFFFF\shad1}100% {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}natural
+Dialogue: 0,0:00:13.36,0:00:13.96,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}shilajit
+Dialogue: 0,0:00:13.96,0:00:14.08,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}and
+Dialogue: 0,0:00:14.08,0:00:14.88,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}Ashwagandha.
+Dialogue: 0,0:00:14.88,0:00:15.24,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}Trust
+Dialogue: 0,0:00:15.24,0:00:15.44,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}me,
+Dialogue: 0,0:00:15.44,0:00:15.92,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}it's {\fnImpact\fs24\c&HFFFFFF\shad1}my
+Dialogue: 0,0:00:15.92,0:00:16.19,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}secret
+Dialogue: 0,0:00:16.19,0:00:16.44,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}to
+Dialogue: 0,0:00:16.44,0:00:17.52,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}consistent {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}stamina.
+Dialogue: 0,0:00:17.52,0:00:18.80,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}After {\fnImpact\fs24\c&HFFFFFF\shad1}eight {\fnImpact\fs24\c&HFFFFFF\shad1}weeks {\fnImpact\fs24\c&HFFFFFF\shad1}of {\fnImpact\fs24\c&HFFFFFF\shad1}this
+Dialogue: 0,0:00:18.80,0:00:19.28,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}routine,
+Dialogue: 0,0:00:19.28,0:00:19.60,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}my
+Dialogue: 0,0:00:19.60,0:00:20.20,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}endurance
+Dialogue: 0,0:00:20.20,0:00:20.40,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}is
+Dialogue: 0,0:00:20.40,0:00:20.64,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}better
+Dialogue: 0,0:00:20.64,0:00:21.32,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}at {\fnImpact\fs24\c&HFFFFFF\shad1}the {\fnImpact\fs24\c&HFFFFFF\shad1}gym.
+Dialogue: 0,0:00:21.32,0:00:22.00,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}Plus {\fnImpact\fs24\c&HFFFFFF\shad1}it
+Dialogue: 0,0:00:22.00,0:00:22.84,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}shows {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}up {\fnImpact\fs24\c&HFFFFFF\shad1}when {\fnImpact\fs24\c&HFFFFFF\shad1}it
+Dialogue: 0,0:00:22.84,0:00:23.24,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}matters
+Dialogue: 0,0:00:23.24,0:00:23.40,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}the
+Dialogue: 0,0:00:23.40,0:00:23.68,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}most.
+Dialogue: 0,0:00:23.84,0:00:25.00,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}But {\fnImpact\fs24\c&HFFFFFF\shad1}for {\fnImpact\fs24\c&HFFFFFF\shad1}the {\fnImpact\fs24\c&HFFFFFF\shad1}movements {\fnImpact\fs24\c&HFFFFFF\shad1}when
+Dialogue: 0,0:00:25.00,0:00:26.16,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}you {\fnImpact\fs24\c&HFFFFFF\shad1}need {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}immediate {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}control.
+Dialogue: 0,0:00:26.57,0:00:28.29,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}Durix {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}Elevate {\fnImpact\fs24\c&HFFFFFF\shad1}Clamix {\fnImpact\fs24\c&HFFFFFF\shad1}Zillius {\fnImpact\fs24\c&HFFFFFF\shad1}spray
+Dialogue: 0,0:00:28.29,0:00:28.61,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}is {\fnImpact\fs24\c&HFFFFFF\shad1}your
+Dialogue: 0,0:00:28.61,0:00:28.93,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}perfect
+Dialogue: 0,0:00:28.93,0:00:29.65,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}Bing {\fnImpact\fs24\c&HFFFFFF\shad1}map.
+Dialogue: 0,0:00:29.65,0:00:30.21,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}Just {\fnImpact\fs24\c&HFFFFFF\shad1}three
+Dialogue: 0,0:00:30.21,0:00:30.89,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}sprees,
+Dialogue: 0,0:00:30.97,0:00:31.25,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}a
+Dialogue: 0,0:00:31.25,0:00:31.81,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}few {\fnImpact\fs24\c&HFFFFFF\shad1}minutes
+Dialogue: 0,0:00:31.81,0:00:32.65,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}and {\fnImpact\fs24\c&HFFFFFF\shad1}you {\fnImpact\fs24\c&HFFFFFF\shad1}are {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}ready
+Dialogue: 0,0:00:32.65,0:00:32.97,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}with {\fnImpact\fs24\c&HFFFFFF\shad1}your
+Dialogue: 0,0:00:32.97,0:00:33.21,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}performance.
+Dialogue: 0,0:00:33.61,0:00:35.05,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}Earth {\fnImpact\fs24\c&HFFFFFF\shad1}remembering {\fnImpact\fs24\c&HFFFFFF\shad1}with
+Dialogue: 0,0:00:35.05,0:00:36.53,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}300 {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}sprays {\fnImpact\fs24\c&HFFFFFF\shad1}per {\fnImpact\fs24\c&HFFFFFF\shad1}bottle,
+Dialogue: 0,0:00:36.53,0:00:37.61,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}this {\fnImpact\fs24\c&HFFFFFF\shad1}pocket {\fnImpact\fs24\c&HFFFFFF\shad1}sized
+Dialogue: 0,0:00:37.61,0:00:39.01,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}confidence {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}booster {\fnImpact\fs24\c&HFFFFFF\shad1}goes
+Dialogue: 0,0:00:39.01,0:00:39.17,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}a
+Dialogue: 0,0:00:39.17,0:00:39.41,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}long
+Dialogue: 0,0:00:39.41,0:00:39.77,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}way.
+Dialogue: 0,0:00:39.93,0:00:41.93,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}So {\fnImpact\fs24\c&HFFFFFF\shad1}head {\fnImpact\fs24\c&HFFFFFF\shad1}towards {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}durexindia.com
+Dialogue: 0,0:00:41.93,0:00:42.60,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}and {\fnImpact\fs24\c&HFFFFFF\shad1}get {\fnImpact\fs24\c&HFFFFFF\shad1}the
+Dialogue: 0,0:00:42.60,0:00:43.41,Default,,0,0,0,,{\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}perfect {\fnImpact\fs24\c&HFFFFFF\shad1}duo
+Dialogue: 0,0:00:43.41,0:00:43.65,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}and
+Dialogue: 0,0:00:43.65,0:00:44.37,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}take {\fnImpact\fs24\c&HFFFFFF\shad1}your {\fnImpact\fs24\c&HFFFFFF\shad1}things {\fnImpact\fs24\c&HFFFFFF\shad1}to
+Dialogue: 0,0:00:44.37,0:00:45.05,Default,,0,0,0,,{\fnImpact\fs24\c&HFFFFFF\shad1}next {\fnLuckiest Guy\fs24\c&HFFFFFF\shad1}levels.

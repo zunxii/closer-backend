@@ -77,20 +77,22 @@ class VideoSubtitleProcessor:
 
         openai_results = {}
         for name, relative_path in rep_dict.items():
-            image_path = os.path.join(self.cropped_words_dir, relative_path)
+            image_path = os.path.join(self.frames_dir, relative_path)
             try:
                 result = self.openai_analyzer.send_image_to_openai(image_path)
-                openai_results[name] = result
+                parsed_result = json.loads(result)  
+                openai_results[name] = parsed_result
             except Exception as e:
                 print(f"Error analyzing image {name}: {e}")
 
-        return list(openai_results.values())
+        return list(openai_results.values())  # Now it's a list of dicts
 
     def _extract_styles_from_reference(self, ref_video_path: str) -> List[Dict[str, Any]]:
         print(" Step 1: Extracting frames from reference video...")
         self.frame_extractor.extract_frames(ref_video_path, self.frames_dir)
 
         font_analysis_results = self._extract_and_analyze_text_styles()
+        print(font_analysis_results)
 
         print(" Step 5: Clustering styles...")
         return self.style_clusterer.cluster_styles(font_analysis_results)

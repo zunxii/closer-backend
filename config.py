@@ -9,7 +9,7 @@ class Config:
     ASSEMBLYAI_API_KEY = os.getenv("ASSEMBLYAI_API_KEY")
     INSTAGRAM_VIDEO_DOWNLOAD_API_KEY = os.getenv("INSTAGRAM_VIDEO_DOWNLOAD_API_KEY")
     
-    TARGET_FPS = 2
+    TARGET_FPS = 1
     MAX_FRAMES = 85
     MAX_CHUNK_SIZE = 5
     PAUSE_THRESHOLD = 120
@@ -26,7 +26,7 @@ class Config:
     CHUNK_SIZE = 5242880
 
     DEFAULT_STYLE_NAME = "style3"
-    MIN_FREQUENCY = 3
+    MIN_FREQUENCY = 1
     ALPHA = 0.7
     BETA = 0.3
 

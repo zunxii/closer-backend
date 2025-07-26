@@ -7,6 +7,8 @@ import open_clip
 import numpy as np
 from PIL import Image
 from collections import defaultdict, Counter
+from tqdm import tqdm
+
 
 
 class TextStyleAnalyzer:
@@ -45,7 +47,8 @@ class TextStyleAnalyzer:
 
     def extract_words(self):
         frame_files = sorted([f for f in os.listdir(self.frame_dir) if f.lower().endswith(('.png', '.jpg'))])
-        for frame_file in frame_files:
+        
+        for frame_file in tqdm(frame_files, desc="Extracting words from frames"):
             frame_path = os.path.join(self.frame_dir, frame_file)
             image = cv2.imread(frame_path)
             if image is None:
@@ -179,7 +182,8 @@ class TextStyleAnalyzer:
                     "count": len(items),
                     "files": [i["filename"] for i in items]
                 }
-                flat_result[f"{color}_{style}"] = best_item["filename"]
+                original_frame = best_item["filename"].split("_word")[0] + ".jpg"
+                flat_result[f"{color}_{style}"] = original_frame
 
             final_result[color] = color_result
 
@@ -189,6 +193,7 @@ class TextStyleAnalyzer:
             json.dump(flat_result, f, indent=2)
 
         print(f"✅ Output saved to '{output_detailed}' and '{output_flat}'.")
+
 
 
 if __name__ == "__main__":

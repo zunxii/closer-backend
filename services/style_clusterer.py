@@ -4,50 +4,61 @@ from collections import defaultdict
 from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import MinMaxScaler
 from config import Config
-from utils.text_utils import hex_to_rgb
+
 
 class StyleClusterer:
     def __init__(self):
         self.alpha = Config.ALPHA
         self.beta = Config.BETA
         self.min_frequency = Config.MIN_FREQUENCY
+        self._color_map = {}
+
+    def _color_string_to_index(self, color: str) -> int:
+        """Convert a unique color string like '&HFF00FF' into an index."""
+        if color not in self._color_map:
+            self._color_map[color] = len(self._color_map)
+        return self._color_map[color]
 
     def compute_visual_weight(self, style: Dict) -> float:
         """Compute visual weight of a style"""
         weight = style["fontsize"]
-        if style["bold"] == -1:
+        if style.get("bold") == -1:
             weight += 20
-        if style["italic"] == -1:
+        if style.get("italic") == -1:
             weight += 5
         return weight
 
-    def cluster_styles(self, frames: List[Dict]) -> List[Dict]:
-        """Cluster similar styles and return ranked representatives"""
+    def cluster_styles(self, styles: List[Dict]) -> List[Dict]:
+        """Cluster similar flat style dicts and return ranked representatives"""
         style_entries = []
         style_features = []
         seen_keys = set()
         style_to_word_refs = defaultdict(list)
 
         # Collect unique styles
-        for frame in frames:
-            for word in frame.get("words", []):
-                key = (word["fontname"], word["fontsize"], word["primary_colour"], word["bold"], word["italic"])
-                style_to_word_refs[key].append(word)
+        for word in styles:
+            key = (
+                word["fontname"],
+                word["fontsize"],
+                word["primary_colour"],
+                word["bold"],
+                word["italic"]
+            )
+            style_to_word_refs[key].append(word)
 
-                if key in seen_keys:
-                    continue
-                seen_keys.add(key)
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
 
-                rgb = hex_to_rgb(word["primary_colour"])
-                vec = [
-                    word["fontsize"],
-                    int(word["bold"] != 0),
-                    int(word["italic"] != 0),
-                    *rgb
-                ]
+            vec = [
+                word["fontsize"],
+                int(word["bold"] != 0),
+                int(word["italic"] != 0),
+                self._color_string_to_index(word["primary_colour"])
+            ]
 
-                style_entries.append(word)
-                style_features.append(vec)
+            style_entries.append(word)
+            style_features.append(vec)
 
         if not style_features:
             return []
@@ -114,8 +125,9 @@ class StyleClusterer:
                 "primary_colour": style["primary_colour"],
                 "bold": style["bold"],
                 "italic": style["italic"],
-                "outline": style["outline"],
-                "shadow": style["shadow"]
+                "outline": style.get("outline", 0),
+                "shadow": style.get("shadow", 0),
+                "frame_id": style.get("frame_id", "")
             })
 
         return ranked_styles

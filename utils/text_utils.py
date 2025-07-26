@@ -18,19 +18,18 @@ def hex_to_ass_color(hex_color: str) -> str:
     r, g, b = hex_color[0:2], hex_color[2:4], hex_color[4:6]
     return f"&H{b}{g}{r}".upper()
 
-def hex_to_rgb(hex_color: str) -> List[int]:
-    """Convert hex color code to RGB list. Handles short and invalid formats."""
-    hex_color = hex_color.strip().lstrip('&H').lstrip('#')
-    if len(hex_color) == 6:
-        try:
-            return [
-                int(hex_color[4:6], 16),  
-                int(hex_color[2:4], 16),  
-                int(hex_color[0:2], 16)   
-            ]
-        except ValueError:
-            pass
-    return [255, 255, 255]
+def hex_to_rgb(ass_color: str):
+    """
+    Converts ASS color format (&HBBGGRR) to (R, G, B).
+    Input: '&HFF00FF'
+    Output: (255, 0, 255)
+    """
+    hex_str = ass_color.strip().upper().replace("&H", "").zfill(6)
+    bb = int(hex_str[0:2], 16)
+    gg = int(hex_str[2:4], 16)
+    rr = int(hex_str[4:6], 16)
+    return (rr, gg, bb)
+
 
 def ms_to_ass_time(ms: int) -> str:
     """Convert milliseconds to ASS time format"""
