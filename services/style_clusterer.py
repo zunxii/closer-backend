@@ -129,5 +129,5 @@ class StyleClusterer:
                 "shadow": style.get("shadow", 0),
                 "frame_id": style.get("frame_id", "")
             })
-
+        print(ranked_styles)
         return ranked_styles

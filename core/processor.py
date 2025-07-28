@@ -9,6 +9,8 @@ from utils.file_utils import (
     save_uploaded_file
 )
 
+# from utils.text_utils import parse_multiple_json_objects
+
 from services.frame_extractor import FrameExtractor
 from services.duplicate_filter import DuplicateFilter
 from services.style_clusterer import StyleClusterer
@@ -80,8 +82,13 @@ class VideoSubtitleProcessor:
             image_path = os.path.join(self.frames_dir, relative_path)
             try:
                 result = self.openai_analyzer.send_image_to_openai(image_path)
-                parsed_result = json.loads(result)  
-                openai_results[name] = parsed_result
+                style_objects = result
+                if not style_objects:
+                    print(f"⚠️ No valid style objects parsed for {name}")
+                else:
+                    for style in style_objects:
+                        openai_results[f"{name}_{style.get('name', 'style')}"] = style
+
             except Exception as e:
                 print(f"Error analyzing image {name}: {e}")
 
@@ -154,4 +161,5 @@ class VideoSubtitleProcessor:
             raise Exception(f"Processing failed: {str(e)}")
 
         finally:
+            print("ok")
             cleanup_temp_directory(self.temp_dir)

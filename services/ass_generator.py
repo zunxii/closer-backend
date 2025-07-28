@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 from datetime import timedelta
 from config import Config
-from utils.text_utils import hex_to_ass_color  # ✅ Import utility function
+# from utils.text_utils import hex_to_ass_color  # ✅ Import utility function
 
 
 class SubtitleGenerator:
@@ -99,7 +99,7 @@ Format: Name, Fontname, Fontsize, PrimaryColour, Bold, Italic, Outline, Shadow, 
 """
 
         style_lines = [
-            f"Style: {s['name']},{s['fontname']},{s['fontsize']},{hex_to_ass_color(s['primary_colour'])},{s['bold']},{s['italic']},{s['outline']},{s['shadow']},2,10,10,10,1"
+            f"Style: {s['name']},{s['fontname']},{s['fontsize']},{(s['primary_colour'])},{s['bold']},{s['italic']},{s['outline']},{s['shadow']},2,10,10,10,1"
             for s in raw_styles
         ]
 
@@ -125,7 +125,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
                 styled_word = (
                     "{\\fn" + s["fontname"] +
-                    f"\\fs{s['fontsize']}\\c{hex_to_ass_color(s['primary_colour'])}" +
+                    f"\\fs{s['fontsize']}\\c{(s['primary_colour'])}" +
                     ("\\b1" if s["bold"] == -1 else "") +
                     f"\\shad{s['shadow']}}}" + word["text"]
                 )

@@ -1,5 +1,6 @@
 import os
 import tempfile
+import json
 import shutil
 from pathlib import Path
 from typing import Generator, List
@@ -101,3 +102,24 @@ def is_image_file(filename: str) -> bool:
 def is_video_file(filename: str) -> bool:
     """Check if file is a video"""
     return get_file_extension(filename) in ['.mp4', '.avi', '.mov', '.mkv', '.wmv']
+
+def parse_multiple_json_objects(text: str) -> List[dict]:
+        """
+        Safely parse multiple JSON objects from a single string response.
+        """
+        json_objects = []
+        # Fallback pattern if your Python doesn't support recursive regex
+        pattern = r"\{[^{}]*\}"
+
+        try:
+            matches = re.findall(pattern, text, re.DOTALL)
+            for match in matches:
+                try:
+                    obj = json.loads(match)
+                    json_objects.append(obj)
+                except json.JSONDecodeError as e:
+                    print(f"⚠️ Skipping malformed JSON: {e}")
+        except Exception as e:
+            print(f"❌ Error parsing JSON: {e}")
+        
+        return json_objects

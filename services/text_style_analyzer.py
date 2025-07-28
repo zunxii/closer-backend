@@ -71,6 +71,10 @@ class TextStyleAnalyzer:
 
                 cropped = image[y_min:y_max, x_min:x_max]
                 word_filename = f"{os.path.splitext(frame_file)[0]}_word{i}.png"
+                if cropped is None or cropped.size == 0:
+                    print(f"⚠️ Skipping invalid crop from {frame_file} (word {i})")
+                    continue
+
                 cv2.imwrite(os.path.join(self.output_dir, word_filename), cropped)
 
     def rgb_to_color_family(self, rgb):
