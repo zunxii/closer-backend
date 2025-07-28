@@ -125,7 +125,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
                 styled_word = (
                     "{\\fn" + s["fontname"] +
-                    f"\\fs{s['fontsize']}\\c{(s['primary_colour'])}" +
+                    f"\\fs{int(s['fontsize'] * 1.5)}\\c{(s['primary_colour'])}" +
                     ("\\b1" if s["bold"] == -1 else "") +
                     f"\\shad{s['shadow']}}}" + word["text"]
                 )

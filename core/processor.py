@@ -66,16 +66,16 @@ class VideoSubtitleProcessor:
     def _extract_and_analyze_text_styles(self) -> List[Dict[str, Any]]:
         """Run text extraction, style classification, and OpenAI analysis."""
         print(" Step 2: Extracting text from frames...")
-        self.text_style_analyzer.extract_words()
+        self.text_style_analyzer.extract_words() # <- word cropping
 
         print(" Step 3: Analyzing styles and grouping by color + logic...")
         detailed_path = os.path.join(self.temp_dir, "final_style_groups.json")
         flat_path = os.path.join(self.temp_dir, "style_representatives_flat.json")
-        self.text_style_analyzer.analyze_styles(output_detailed=detailed_path, output_flat=flat_path)
+        self.text_style_analyzer.analyze_styles(output_detailed=detailed_path, output_flat=flat_path) # <- color cluster then usi ke andr weight cluster
 
         print(" Step 4: Sending representative styles to OpenAI for analysis...")
         with open(flat_path, "r") as f:
-            rep_dict = json.load(f)
+            rep_dict = json.load(f) # <- cropped me se representative frames 
 
         openai_results = {}
         for name, relative_path in rep_dict.items():
@@ -96,7 +96,7 @@ class VideoSubtitleProcessor:
 
     def _extract_styles_from_reference(self, ref_video_path: str) -> List[Dict[str, Any]]:
         print(" Step 1: Extracting frames from reference video...")
-        self.frame_extractor.extract_frames(ref_video_path, self.frames_dir)
+        self.frame_extractor.extract_frames(ref_video_path, self.frames_dir)  # <- opencv se frame nikal rha h 
 
         font_analysis_results = self._extract_and_analyze_text_styles()
         print(font_analysis_results)

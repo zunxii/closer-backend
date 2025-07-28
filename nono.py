@@ -16,4 +16,4 @@ def add_ass_subtitles(input_video, subtitle_file, output_video):
         print(f"❌ Error applying subtitles:\n{e}")
 
 # Example usage
-add_ass_subtitles("input.mp4", "sub1.ass", "output_with_subs.mp4")
+add_ass_subtitles("i.mp4", "sub.ass", "output_with_subs.mp4")

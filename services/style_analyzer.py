@@ -37,7 +37,7 @@ class StyleAnalyzer:
             "Output Format:\n"
             "{\n"
             '  "name": "style1",\n'
-            '  "fontname": "<Exact font name visually identified not some generic font family like Arial>",\n'
+            '  "fontname": "<Exact font name from google fonts only visually identified not some generic font family like Arial>",\n'
             '  "fontsize": <estimated size in pt>,\n'
             '  "primary_colour": "&HBBGGRR" (hex with alpha channel),\n'
             '  "bold": 1 or 0,\n'
