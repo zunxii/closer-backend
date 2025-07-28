@@ -8,6 +8,9 @@ class Config:
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     ASSEMBLYAI_API_KEY = os.getenv("ASSEMBLYAI_API_KEY")
     INSTAGRAM_VIDEO_DOWNLOAD_API_KEY = os.getenv("INSTAGRAM_VIDEO_DOWNLOAD_API_KEY")
+
+    HOST="0.0.0.0"
+    PORT=8080
     
     TARGET_FPS = 1
     MAX_FRAMES = 85
