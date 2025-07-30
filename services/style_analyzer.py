@@ -31,6 +31,7 @@ class StyleAnalyzer:
             "- Look closely at curves, edges, thickness, and letterforms to identify nuanced fonts.\n"
             "- Infer size based on pixel height and visual density.\n"
             "- If the font has styles like 'Bold Italic' or 'Condensed Light', include the full designation.\n"
+            "- Make sure to return the color in BBGGRR not RRGGBB as its going to be used directly in ass-parsing.\n"
             "- If multiple styles exist in one image (e.g., different font sizes or types), return them as separate JSON chunks. Otherwise, return one.\n"
             "- Guess based on appearance: even if unsure of the exact name, choose the closest font visually, e.g., 'Open Sans Bold' or 'Roboto Condensed Italic'.\n"
             "- Output must be in clean JSON with no markdown, code fencing, or explanation.\n\n"
