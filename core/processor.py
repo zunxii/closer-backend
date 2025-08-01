@@ -74,21 +74,32 @@ class VideoSubtitleProcessor:
         image_paths = [os.path.join(self.frames_dir, fname) for fname in frame_files]
 
         try:
-            # Returns: tuple (style list, frame-style map)
-            styles, frame_style_map = self.openai_analyzer.send_batch_images_to_openai(image_paths)
+            result = self.openai_analyzer.send_batch_images_to_openai(image_paths)
+
+            # Defensive unpacking and validation
+            if not result or not isinstance(result, tuple) or len(result) != 2:
+                raise ValueError("Style analysis returned invalid result. Expected (styles, frame_style_map)")
+
+            styles, frame_style_map = result
+
+            if not styles or not isinstance(styles, list):
+                raise ValueError("Invalid or empty styles returned.")
+
+            if not frame_style_map or not isinstance(frame_style_map, dict):
+                raise ValueError("Invalid or empty frame_style_map returned.")
+
             print(f" Extracted {len(styles)} styles from {len(frame_style_map)} frames.")
-            # print("DEBUG STYLES SAMPLE:", styles[0])
-            # print("DEBUG TYPE OF styles[0]:", type(styles[0]))
 
             # Optionally save the response
             with open("style_clusters.json", "w") as f:
                 json.dump(frame_style_map, f, indent=4)
 
-            return styles , frame_style_map
+            return styles, frame_style_map
 
         except Exception as e:
-            print(f" Failed to analyze styles in batch: {e}")
-            return []
+            print(f"❌ Failed to analyze styles in batch: {e}")
+            return [], {}
+
 
 
     def _extract_styles_from_reference(self, ref_video_path: str) -> List[Dict[str, Any]]:

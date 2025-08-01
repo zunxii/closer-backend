@@ -9,70 +9,54 @@ Timer: 100.0000
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, Bold, Italic, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 
-Style: style1,Roboto Regular,32,&H00FFFFFF,0,0,0,0,2,10,10,10,1
-Style: style2,Playfair Display Italic,48,&H00FFFFFF,0,1,0,0,2,10,10,10,1
-Style: style3,Playfair Display, Bold-Italic,36,&H0000FFFF,1,1,0,0,2,10,10,10,1
-Style: style4,Playfair Display Italic,36,&H00FFFF,0,1,0,0,2,10,10,10,1
-Style: style5,Playfair Display Bold,48,&H0000FFFF,1,0,0,0,2,10,10,10,1
-
-{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}
-
-{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}
-
-{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}
-
-{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}
+Style: style1,Roboto Bold,24,&H00FFFF,1,0,0,0,2,10,10,10,1
+Style: style2,Roboto Regular,24,&HFFFFFF,0,0,0,0,2,10,10,10,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
-Dialogue: 0,0:00:00.24,0:00:00.88,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}Nothing {\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}kills
-Dialogue: 0,0:00:00.88,0:00:01.00,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}my
-Dialogue: 0,0:00:01.00,0:00:02.12,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}mood {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}more {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}than {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}a
-Dialogue: 0,0:00:02.12,0:00:02.88,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}bad {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}timing.
-Dialogue: 0,0:00:03.28,0:00:04.24,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}But {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}last {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}night,
-Dialogue: 0,0:00:04.48,0:00:05.28,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}different {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}story.
-Dialogue: 0,0:00:05.44,0:00:06.40,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}It's {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}like {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}he
-Dialogue: 0,0:00:06.40,0:00:07.08,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}knew {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}exactly
-Dialogue: 0,0:00:07.08,0:00:07.40,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}what {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}I
-Dialogue: 0,0:00:07.40,0:00:07.84,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}needed.
-Dialogue: 0,0:00:08.08,0:00:09.28,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}And {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}just {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}when {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}I {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}thought
-Dialogue: 0,0:00:09.28,0:00:10.56,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}things {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}couldn't {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}get {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}better,
-Dialogue: 0,0:00:10.64,0:00:10.92,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}he
-Dialogue: 0,0:00:10.92,0:00:12.16,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}took {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}it {\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}even {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}further.
-Dialogue: 0,0:00:12.24,0:00:12.52,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}And
-Dialogue: 0,0:00:12.52,0:00:13.44,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}guess {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}what {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}I
-Dialogue: 0,0:00:13.44,0:00:13.68,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}found
-Dialogue: 0,0:00:13.68,0:00:14.12,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}his {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}little
-Dialogue: 0,0:00:14.12,0:00:14.48,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}secret.
-Dialogue: 0,0:00:14.72,0:00:17.84,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}Durex's {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}Elevate {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}Climax {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}Delay {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}Spray.
-Dialogue: 0,0:00:17.84,0:00:18.72,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}Three {\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}sprays,
-Dialogue: 0,0:00:18.88,0:00:19.76,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}five {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}minutes,
-Dialogue: 0,0:00:19.76,0:00:20.44,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}and {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}you're {\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}good
-Dialogue: 0,0:00:20.44,0:00:20.60,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}to
-Dialogue: 0,0:00:20.60,0:00:20.88,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}go.
-Dialogue: 0,0:00:20.88,0:00:22.64,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}This {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}little {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}game {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}changer {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}lets
-Dialogue: 0,0:00:22.64,0:00:23.84,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}you {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}linger {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}on {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}so {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}that
-Dialogue: 0,0:00:23.84,0:00:24.68,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}you {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}can {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}build {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}up {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}the
-Dialogue: 0,0:00:24.68,0:00:25.44,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}anticipation
-Dialogue: 0,0:00:25.68,0:00:26.08,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}and
-Dialogue: 0,0:00:26.08,0:00:27.12,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}truly {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}savor
-Dialogue: 0,0:00:27.12,0:00:27.24,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}the
-Dialogue: 0,0:00:27.24,0:00:27.68,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}moment.
-Dialogue: 0,0:00:28.18,0:00:28.46,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}Just {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}a
-Dialogue: 0,0:00:28.46,0:00:28.70,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}touch
-Dialogue: 0,0:00:28.70,0:00:28.82,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}of
-Dialogue: 0,0:00:28.82,0:00:29.06,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}this
-Dialogue: 0,0:00:29.14,0:00:30.14,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}and {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}you're {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}in {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}for {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}a
-Dialogue: 0,0:00:30.14,0:00:30.58,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}longer,
-Dialogue: 0,0:00:30.58,0:00:31.10,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}deeper,
-Dialogue: 0,0:00:31.10,0:00:31.42,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}and
-Dialogue: 0,0:00:31.42,0:00:32.50,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}more {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}connected {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}experience
-Dialogue: 0,0:00:32.90,0:00:33.86,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}with {\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}your {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}partner.
-Dialogue: 0,0:00:33.86,0:00:34.22,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}Head {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}over
-Dialogue: 0,0:00:34.22,0:00:34.34,Default,,0,0,0,,{\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}to
-Dialogue: 0,0:00:34.34,0:00:35.42,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}durexindia.com
-Dialogue: 0,0:00:35.42,0:00:35.58,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}to
-Dialogue: 0,0:00:35.58,0:00:36.34,Default,,0,0,0,,{\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}go {\fnRoboto Regular\fs32\c&H00FFFFFF\shad0}from {\fnPlayfair Display \fs48\c&H00FFFFFF\shad0}{\i1}good
-Dialogue: 0,0:00:36.50,0:00:36.86,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H00FFFF\shad0}to
-Dialogue: 0,0:00:36.86,0:00:37.78,Default,,0,0,0,,{\fnPlayfair Display Italic\fs36\c&H0000FFFF\shad0}{\b1}unforgettable.
+Dialogue: 0,0:00:00.24,0:00:01.80,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}Nothing {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}kills {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}my {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}mood {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}more
+Dialogue: 0,0:00:01.80,0:00:02.88,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}than {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}a {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}bad {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}timing.
+Dialogue: 0,0:00:03.28,0:00:04.24,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}But {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}last {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}night,
+Dialogue: 0,0:00:04.48,0:00:05.28,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}different {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}story.
+Dialogue: 0,0:00:05.44,0:00:06.40,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}It's {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}like {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}he
+Dialogue: 0,0:00:06.40,0:00:07.08,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}knew {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}exactly
+Dialogue: 0,0:00:07.08,0:00:07.40,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}what {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}I
+Dialogue: 0,0:00:07.40,0:00:07.84,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}needed.
+Dialogue: 0,0:00:08.08,0:00:09.28,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}And {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}just {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}when {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}I {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}thought
+Dialogue: 0,0:00:09.28,0:00:10.56,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}things {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}couldn't {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}get {\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}better,
+Dialogue: 0,0:00:10.64,0:00:12.16,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}he {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}took {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}it {\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}even {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}further.
+Dialogue: 0,0:00:12.24,0:00:13.68,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}And {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}guess {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}what {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}I {\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}found
+Dialogue: 0,0:00:13.68,0:00:14.48,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}his {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}little {\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}secret.
+Dialogue: 0,0:00:14.72,0:00:17.84,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}Durex's {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}Elevate {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}Climax {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}Delay {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}Spray.
+Dialogue: 0,0:00:17.84,0:00:18.72,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}Three {\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}sprays,
+Dialogue: 0,0:00:18.88,0:00:19.76,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}five {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}minutes,
+Dialogue: 0,0:00:19.76,0:00:20.88,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}and {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}you're {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}good {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}to {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}go.
+Dialogue: 0,0:00:20.88,0:00:22.64,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}This {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}little {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}game {\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}changer {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}lets
+Dialogue: 0,0:00:22.64,0:00:22.76,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}you
+Dialogue: 0,0:00:22.76,0:00:23.12,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}linger
+Dialogue: 0,0:00:23.12,0:00:24.28,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}on {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}so {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}that {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}you {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}can
+Dialogue: 0,0:00:24.28,0:00:24.44,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}build
+Dialogue: 0,0:00:24.44,0:00:24.68,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}up {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}the
+Dialogue: 0,0:00:24.68,0:00:25.44,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}anticipation
+Dialogue: 0,0:00:25.68,0:00:26.08,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}and
+Dialogue: 0,0:00:26.08,0:00:27.12,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}truly {\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}savor
+Dialogue: 0,0:00:27.12,0:00:27.24,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}the
+Dialogue: 0,0:00:27.24,0:00:27.68,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}moment.
+Dialogue: 0,0:00:28.18,0:00:28.46,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}Just {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}a
+Dialogue: 0,0:00:28.46,0:00:28.70,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}touch
+Dialogue: 0,0:00:28.70,0:00:28.82,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}of
+Dialogue: 0,0:00:28.82,0:00:29.06,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}this
+Dialogue: 0,0:00:29.14,0:00:30.14,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}and {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}you're {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}in {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}for {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}a
+Dialogue: 0,0:00:30.14,0:00:30.58,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}longer,
+Dialogue: 0,0:00:30.58,0:00:31.10,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}deeper,
+Dialogue: 0,0:00:31.10,0:00:31.42,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}and
+Dialogue: 0,0:00:31.42,0:00:32.50,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}more {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}connected {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}experience
+Dialogue: 0,0:00:32.90,0:00:33.86,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}with {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}your {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}partner.
+Dialogue: 0,0:00:33.86,0:00:34.22,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}Head {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}over
+Dialogue: 0,0:00:34.22,0:00:34.34,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}to
+Dialogue: 0,0:00:34.34,0:00:35.42,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}durexindia.com
+Dialogue: 0,0:00:35.42,0:00:35.58,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}to
+Dialogue: 0,0:00:35.58,0:00:36.34,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}go {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}from {\fnRoboto Regular\fs24\c&HFFFFFF\shad0}good
+Dialogue: 0,0:00:36.50,0:00:36.86,Default,,0,0,0,,{\fnRoboto Regular\fs24\c&HFFFFFF\shad0}to
+Dialogue: 0,0:00:36.86,0:00:37.78,Default,,0,0,0,,{\fnRoboto Bold\fs24\c&H00FFFF\b1\shad0}unforgettable.
