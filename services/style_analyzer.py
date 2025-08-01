@@ -1,11 +1,9 @@
 import os
 import json
 import base64
-import re
-from typing import List
+from typing import List, Dict, Any
 from openai import OpenAI
-from config import get_settings  
-from utils.text_utils import parse_multiple_json_objects
+from config import get_settings
 
 
 class StyleAnalyzer:
@@ -17,8 +15,13 @@ class StyleAnalyzer:
         with open(image_path, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode("utf-8")
 
-    def send_image_to_openai(self, image_path: str) -> List[dict]:
-        base64_image = self.encode_image_to_base64(image_path)
+    def send_batch_images_to_openai(self, image_paths: List[str]) -> tuple[List[Dict[str, Any]], Dict[str, List[str]]]:
+        base64_images = []
+        for path in image_paths:
+            base64_images.append({
+                "filename": os.path.basename(path),
+                "base64": self.encode_image_to_base64(path)
+            })
 
         prompt = (
             "You are an expert visual design assistant for a professional video editing tool. "
@@ -35,62 +38,99 @@ class StyleAnalyzer:
             "- If multiple styles exist in one image (e.g., different font sizes or types), return them as separate JSON chunks. Otherwise, return one.\n"
             "- Guess based on appearance: even if unsure of the exact name, choose the closest font visually, e.g., 'Open Sans Bold' or 'Roboto Condensed Italic'.\n"
             "- Output must be in clean JSON with no markdown, code fencing, or explanation.\n\n"
-            "Output Format:\n"
-            "{\n"
-            '  "name": "style1",\n'
-            '  "fontname": "<Exact font name from google fonts only visually identified not some generic font family like Arial>",\n'
-            '  "fontsize": <estimated size in pt>,\n'
-            '  "primary_colour": "&HBBGGRR" (hex with alpha channel),\n'
-            '  "bold": 1 or 0,\n'
-            '  "italic": 1 or 0,\n'
-            '  "outline": 1 or 0,\n'
-            '  "shadow": 1 or 0,\n'
-            '  "frame_id": "<image filename>"\n'
-            "}\n"
-            "Return nothing except the valid JSON output."
-            "If there are multiple styles in the image, return them as separate JSON objects, treat them as different images and make seperate for each."
+
+            "👀 Tips:\n"
+            "- Carefully observe font endings (serif vs sans), stroke contrast, and letter width.\n"
+            "- Fonts like 'Poppins', 'Montserrat', 'Roboto', 'Lato', 'Oswald', 'Open Sans', etc. should be considered.\n"
+            "- Avoid generic guesses like Arial or Times unless visually confirmed.\n\n"
+
+            "🔢 Output Format:\n"
+            "[\n"
+            "  {\n"
+            '    "frame_id": "filename.jpg",\n'
+            '    "styles": [\n'
+            "      {\n"
+            '        "name": "<style_no> take a counter for all images",\n'
+            '        "fontname": "<Exact font name from google fonts only visually identified not some generic font family like Arial>",\n'
+            '        "fontsize": <number in px>,\n'
+            '        "primary_colour": "<&HBBGGRR> strictly ass format color",\n'
+            '        "bold": 1(for yes) or 0(for no),\n'
+            '        "italic": 1(for yes) or 0(for no),\n'
+            '        "outline": 1(for yes) or 0(for no),\n'
+            '        "shadow": 1(for yes) or 0(for no)\n'
+            "      }, ...\n"
+            "    ]\n"
+            "  }, ...\n"
+            "]\n\n"
+            "Respond ONLY with the raw JSON array. No markdown. No explanations."
         )
+
+        message_content = [{"type": "text", "text": prompt}]
+        for img in base64_images:
+            message_content.append({
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:image/jpeg;base64,{img['base64']}"
+                }
+            })
 
         response = self.client.chat.completions.create(
             model=self.config.OPENAI_MODEL,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": prompt},
-                        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}},
-                    ],
-                }
-            ],
+            messages=[{"role": "user", "content": message_content}],
             max_tokens=self.config.OPENAI_MAX_TOKENS,
             temperature=self.config.OPENAI_TEMPERATURE,
         )
 
-        raw_response = response.choices[0].message.content
-        print(f"OpenAI response:\n{raw_response}")
+        raw_response = response.choices[0].message.content.strip()
+        print(f"📩 OpenAI Response:\n{raw_response}")
 
-        return parse_multiple_json_objects(raw_response)
+        parsed: List[Dict[str, Any]] = json.loads(raw_response)
 
-    def process_all_images(self, folder_path: str) -> List[dict]:
-        all_styles = []
-        for filename in os.listdir(folder_path):
-            if filename.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
-                image_path = os.path.join(folder_path, filename)
-                try:
-                    print(f"📷 Processing image: {filename}")
-                    results = self.send_image_to_openai(image_path)
-                    all_styles.extend(results)
-                except Exception as e:
-                    print(f"❌ Error processing {filename}: {e}")
-        return all_styles
+        all_styles: List[Dict[str, Any]] = []
+        frame_style_map: Dict[str, List[str]] = {}
 
-    def save_output(self, output: List[dict], output_path: str = "style_output.json"):
+        for entry in parsed:
+            frame_id = entry["frame_id"]
+            styles = entry.get("styles", [])
+            frame_style_map[frame_id] = []
+            # print(f"DEBUG styles for frame {frame_id}: {styles} (type={type(styles)})")
+            for style in styles:
+                style["frame_id"] = frame_id
+                all_styles.append(style)
+                # print(f"DEBUG frame_style_map[{frame_id}] = {frame_style_map[frame_id]} (type={type(frame_style_map[frame_id])})")
+                frame_style_map[frame_id].append(style["name"])
+        # print("open ai frame extraction response")
+        # print(all_styles)
+        # print('openai frame mapping response')
+        # print(frame_style_map)
+
+        return all_styles, frame_style_map
+
+    def process_all_images(self, folder_path: str) -> List[Dict[str, Any]]:
+        image_paths = [
+            os.path.join(folder_path, f)
+            for f in os.listdir(folder_path)
+            if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp"))
+        ]
+        if not image_paths:
+            print("⚠️ No valid image files found in the folder.")
+            return []
+
+        try:
+            print(f"📂 Sending {len(image_paths)} images to OpenAI...")
+            all_styles, _ = self.send_batch_images_to_openai(image_paths)
+            return all_styles
+        except Exception as e:
+            print(f"❌ Error during OpenAI processing: {e}")
+            return []
+
+    def save_output(self, output: List[Dict[str, Any]], output_path: str = "style_output.json"):
         with open(output_path, "w") as f:
             json.dump(output, f, indent=4)
         print(f"✅ Saved {len(output)} styles to {output_path}")
 
 
-# Example usage
+# ✅ Example usage
 if __name__ == "__main__":
     analyzer = StyleAnalyzer()
     results = analyzer.process_all_images("representatives")

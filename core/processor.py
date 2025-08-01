@@ -1,3 +1,4 @@
+import json
 import os
 from typing import List, Dict, Any
 from config import Config
@@ -53,7 +54,7 @@ class VideoSubtitleProcessor:
 
     def _download_reference_video(self, reference_url: str) -> str:
         path = os.path.join(self.temp_dir, "reference.mp4")
-        print("📥 Step 0: Downloading reference video...")
+        print(" Step 0: Downloading reference video...")
         self.instagram_downloader.download(reference_url, path)
         return path
 
@@ -63,28 +64,32 @@ class VideoSubtitleProcessor:
         return path
 
     def _extract_and_analyze_text_styles(self) -> List[Dict[str, Any]]:
-        print("🧠 Step: Analyzing styles from extracted frames...")
-        openai_results = {}
+        print(" Step: Analyzing styles from extracted frames...")
 
         frame_files = sorted([
             f for f in os.listdir(self.frames_dir)
             if f.lower().endswith((".jpg", ".jpeg", ".png"))
-        ])[:5]  
+        ])[:5]  # Only process up to 5 frames
 
-        for frame_file in frame_files:
-            image_path = os.path.join(self.frames_dir, frame_file)
-            try:
-                result = self.openai_analyzer.send_image_to_openai(image_path)
-                if result:
-                    for style in result:
-                        key = f"{frame_file}_{style.get('name', 'style')}"
-                        openai_results[key] = style
-                else:
-                    print(f"⚠️ No valid style objects for {frame_file}")
-            except Exception as e:
-                print(f"❌ Error analyzing image {frame_file}: {e}")
+        image_paths = [os.path.join(self.frames_dir, fname) for fname in frame_files]
 
-        return list(openai_results.values())
+        try:
+            # Returns: tuple (style list, frame-style map)
+            styles, frame_style_map = self.openai_analyzer.send_batch_images_to_openai(image_paths)
+            print(f" Extracted {len(styles)} styles from {len(frame_style_map)} frames.")
+            # print("DEBUG STYLES SAMPLE:", styles[0])
+            # print("DEBUG TYPE OF styles[0]:", type(styles[0]))
+
+            # Optionally save the response
+            with open("style_clusters.json", "w") as f:
+                json.dump(frame_style_map, f, indent=4)
+
+            return styles , frame_style_map
+
+        except Exception as e:
+            print(f" Failed to analyze styles in batch: {e}")
+            return []
+
 
     def _extract_styles_from_reference(self, ref_video_path: str) -> List[Dict[str, Any]]:
         print("🎬 Step 1: Extracting styles from reference video...")
@@ -96,12 +101,12 @@ class VideoSubtitleProcessor:
         ref_chunks = self._style_and_chunk_words(ref_sentences, 4)
 
         # Debug: Print the structure of ref_chunks
-        print(f"🔍 Debug: ref_chunks length: {len(ref_chunks)}")
+        print(f" Debug: ref_chunks length: {len(ref_chunks)}")
         if ref_chunks:
-            print(f"🔍 Debug: First chunk structure: {ref_chunks[0]}")
-            print(f"🔍 Debug: First chunk keys: {list(ref_chunks[0].keys())}")
+            print(f" Debug: First chunk structure: {ref_chunks[0]}")
+            print(f" Debug: First chunk keys: {list(ref_chunks[0].keys())}")
         
-        # 🔍 Finding a window that has all 4 styles
+        #  Finding a window that has all 4 styles
         # Define the target styles you're looking for (1, 2, 3, 4 based on style_order)
         target_styles = list(range(1, 5))  # [1, 2, 3, 4]
         
@@ -114,7 +119,7 @@ class VideoSubtitleProcessor:
         # Convert from milliseconds to seconds
         start_time = start_time_ms / 1000.0
         end_time = end_time_ms / 1000.0
-        print(f"🪟 Style window found from {start_time}s to {end_time}s")
+        print(f" Style window found from {start_time}s to {end_time}s")
 
         # Frame extraction
         self.frame_extractor.extract_frames(
@@ -125,11 +130,14 @@ class VideoSubtitleProcessor:
         )
 
         # Style analysis
-        font_analysis_results = self._extract_and_analyze_text_styles()
+        font_analysis_results,  frame_words_map  = self._extract_and_analyze_text_styles()
 
-        # Clustering
-        print("🎨 Step 5: Clustering extracted styles...")
-        return self.style_clusterer.cluster_styles(font_analysis_results)
+        ranked_styles, updated_frame_words_map = self.style_clusterer.cluster_styles(
+            font_analysis_results,
+            frame_words_map
+        )
+
+        return ranked_styles, updated_frame_words_map
 
     def _create_default_styles(self) -> List[Dict[str, Any]]:
         return [{
@@ -144,13 +152,13 @@ class VideoSubtitleProcessor:
         }]
 
     def _process_audio(self, input_video_path: str) -> List[Dict[str, Any]]:
-        print("🎧 Step 6: Transcribing audio...")
+        print(" Step 6: Transcribing audio...")
         transcription = self.audio_processor.process_video_audio(input_video_path)
-        print("✂️ Step 7: Splitting transcription into sentences...")
+        print(" Step 7: Splitting transcription into sentences...")
         return self.sentence_splitter.split_into_sentences(transcription)
 
     def _style_and_chunk_words(self, sentences, num_styles) -> List[Dict[str, Any]]:
-        print("🎨 Step 8: Assigning word styles...")
+        print(" Step 8: Assigning word styles...")
         styled_sentences = self.word_styler.style_words(sentences, num_styles)
 
         styled_with_templates = self.word_styler.apply_template_styles(
@@ -160,7 +168,21 @@ class VideoSubtitleProcessor:
             default_style=Config.DEFAULT_STYLE_NAME
         )
 
-        print("🧩 Step 9: Chunking styled sentences...")
+        print(" Step 9: Chunking styled sentences...")
+        return self.subtitle_generator.process_chunking(styled_with_templates)
+    
+    def _style_and_chunk_words_input(self, sentences, frame_word_map) -> List[Dict[str, Any]]:
+        print(" Step 8: Assigning word styles...")
+        styled_sentences = self.word_styler.style_words_using_map(sentences, frame_word_map)
+
+        styled_with_templates = self.word_styler.apply_template_styles(
+            styled_sentences,
+            total_styles=4,
+            threshold=Config.STYLE_THRESHOLD,
+            default_style=Config.DEFAULT_STYLE_NAME
+        )
+
+        print(" Step 9: Chunking styled sentences...")
         return self.subtitle_generator.process_chunking(styled_with_templates)
 
     def process(self, reference_url: str, input_video) -> str:
@@ -168,15 +190,19 @@ class VideoSubtitleProcessor:
             ref_video_path = self._download_reference_video(reference_url)
             input_video_path = self._save_input_video(input_video)
 
-            ranked_styles = self._extract_styles_from_reference(ref_video_path)
+            ranked_styles, updated_frame_words_map = self._extract_styles_from_reference(ref_video_path)
+
+
             if not ranked_styles:
                 print("⚠️ No styles found — using fallback.")
                 ranked_styles = self._create_default_styles()
             print(ranked_styles)
-            sentences = self._process_audio(input_video_path)
-            chunked_output = self._style_and_chunk_words(sentences, len(ranked_styles))
 
-            print("📝 Step 10: Generating ASS subtitle file...")
+
+            sentences = self._process_audio(input_video_path)
+            chunked_output = self._style_and_chunk_words_input(sentences, updated_frame_words_map)
+
+            print(" Step 10: Generating ASS subtitle file...")
             ass_content = self.subtitle_generator.generate_ass_file(chunked_output, ranked_styles)
 
             print("✅ Subtitle generation complete.")
@@ -187,5 +213,5 @@ class VideoSubtitleProcessor:
             raise
 
         finally:
-            print("🧹 Cleaning up temp directory...")
+            print(" Cleaning up temp directory...")
             cleanup_temp_directory(self.temp_dir)

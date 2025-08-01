@@ -1,0 +1,19 @@
+{
+    "image1.jpg": [
+        "style_1"
+    ],
+    "image2.jpg": [
+        "style_2",
+        "style_3"
+    ],
+    "image3.jpg": [
+        "style_4"
+    ],
+    "image4.jpg": [
+        "style_5"
+    ],
+    "image5.jpg": [
+        "style_6",
+        "style_7"
+    ]
+}

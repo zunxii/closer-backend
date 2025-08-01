@@ -149,6 +149,156 @@ Words:
                     word["style"] = default_style
 
         return data
+    
+    def style_words_using_map(
+    self,
+    sentences: List[Dict[str, Any]],
+    frame_word_map: Dict[str, List[Dict[str, Any]]]
+) -> List[Dict[str, Any]]:
+        """
+        Style words like `style_words`, but enforce style compatibility
+        using precomputed visual clusters (frame_word_map).
+        """
+
+        # Step 1: Use OpenAI to style semantically and energetically
+        styled_sentences = self.style_words(sentences, max_style_order=4)
+
+        # Step 2: use openAI again to map the constrains
+        
+        system_prompt = f"""
+        You are assisting in building a smart and adaptive video editing tool, specifically focusing on improving the visual structure and styling of text overlays used in animated or subtitle-based videos. The goal is to enhance **typographic clarity**, **reduce randomness**, and introduce **visual hierarchy** that helps guide the viewer's attention effectively.
+
+        ---
+
+        ### Context:
+        In these video frames, each sentence consists of several text fragments, and each fragment is styled using predefined "styles" (like font, weight, size, color, boldness, etc.). We have extracted these styled sentences and now want to improve their internal structure and consistency.
+
+        ---
+
+        ### Styled Sentences (Input):
+        Each sentence is currently styled using a particular **order of styles**, which is inconsistent or arbitrary. These styles do not follow a consistent logic or hierarchy, which results in chaotic visuals. Your job is to **refine** these style orders to make them **visually appealing**, **hierarchically structured**, and **coherent across sentences**.
+
+        Styled Sentences:
+        {styled_sentences}
+
+        ---
+
+        ### Style Co-occurrence Mapping:
+        This mapping tells you which styles have been observed together in the same frame across multiple video scenes. It's essentially a set of soft rules or constraints that describe **which styles are compatible with each other**.
+
+        If style A appears in a frame with style B, that means A and B are visually cohesive and can be grouped or sequenced in a sentence. If two styles **do not co-occur**, they should ideally not appear together in the same sentence or right next to each other.
+
+        Mapping:
+        {frame_word_map}
+
+        ---
+
+        ### Objective:
+
+        Your job is to reassign or reorder the styles used in each sentence using the above mapping as a constraint. But this is not just a mechanical task—this is about **applying design reasoning**.
+
+        You are acting as a **typographic system designer** or **motion designer**, thinking about:
+        - **How humans perceive visual structure**
+        - **How styling creates rhythm and tempo**
+        - **How to guide the viewer’s eye using hierarchy**
+
+        The reordering of styles should be intelligent and reflect deep understanding of visual design.
+
+        ---
+
+        ### Guidelines & Reasoning:
+
+        1. **Respect the Co-occurrence Rules:**
+        - If styles A and B do not appear together in the mapping, they should not be placed in the same sentence.
+        - Use the mapping as a filter to determine which style combinations are valid.
+
+        2. **Apply Visual Hierarchy:**
+        - Think of styles as ranked by importance.
+        - Higher-contrast styles (like bold, large fonts, high-saturation colors) carry more emphasis and should come first or be used sparingly.
+        - Subtler styles (smaller text, muted color, italic) should be used for less important fragments.
+        - Create a natural flow — start with strong, high-emphasis styles and descend into softer ones.
+
+        3. **Reduce Randomness:**
+        - Across different sentences, ensure the style orders follow a consistent structure.
+        - Avoid shuffling styles just for variety — consistency is key for branding and user experience.
+
+        4. **Design for the Human Eye:**
+        - Consider how a person reads a line of styled text.
+        - The goal is to guide their attention, not overwhelm or confuse them.
+        - Use design principles like **emphasis, contrast, alignment, repetition**, and **balance**.
+
+        5. **Create Uniform but Flexible Patterns:**
+        - Establish a typographic system or “style grammar” that feels predictable and elegant.
+        - Don't rigidly enforce sameness, but ensure each sentence belongs to a consistent visual family.
+
+        6. **Don’t Change the Sentence or Styles Themselves:**
+        - Your job is not to rewrite text or invent new styles.
+        - Only **reorder** existing styles within the sentence according to constraints and design logic.
+
+        ---
+
+        ### Output:
+        return only the json without comments and markdown just cold blooded json output in a structured format.
+        No explaianation needed just return the json as output only 
+        - Do NOT wrap the output in triple backticks.
+        - Do NOT include any explanation, markdown, commentary, or headers.
+        - Ensure all keys are present for every word.
+        - Maintain the original sentence word order.
+        Your response will be parsed directly using `json.loads()` — any deviation will cause a failure. Be strict and precise.
+        ⚠️ Critical Formatting Instructions:
+        - Every word must include ALL of the following keys: `text`, `start`, `end`, `energy`, `priority_value`, `style_order`.
+        - Even if you reuse or reorder existing styles, make sure every word entry contains both `"priority_value"` and `"style_order"` — without exception.
+        - Do not skip any of these fields. If you're unsure, copy from the original input and just update `priority_value` and `style_order`.
+
+        ---
+        """
+        styled_sentences = []
+
+        for i, sentence in enumerate(sentences):
+            user_prompt = f"""
+Sentence: "{sentence['text']}"
+
+Words:
+{json.dumps(sentence['words'], indent=2)}
+"""
+
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.config.OPENAI_MODEL,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=self.config.OPENAI_TEMPERATURE,
+                    max_tokens=self.config.OPENAI_MAX_TOKENS,
+                )
+
+                content = response.choices[0].message.content.strip()
+                print('ye dekh idhr niche')
+                print(content)
+                # Clean up potential markdown formatting
+                content = re.sub(r"^```(?:json)?", "", content, flags=re.MULTILINE)
+                content = re.sub(r"```$", "", content, flags=re.MULTILINE)
+                content = re.sub(r",\s*([}\]])", r"\1", content)
+                styled_words = json.loads(content)
+
+                styled_sentences.append({
+                    "text": sentence["text"],
+                    "start_time": sentence["start_time"],
+                    "end_time": sentence["end_time"],
+                    "words": styled_words
+                })
+
+                print(f"✅ Styled sentence {i+1}/{len(sentences)}")
+                time.sleep(0.8)  # Rate limiting
+
+            except Exception as e:
+                print(f"❌ Error on sentence {i+1}: {e}")
+                continue
+        
+        return styled_sentences
+
+
 
 # Global functions for backward compatibility
 def style_words(sentences: List[Dict[str, Any]], max_style_order: int) -> List[Dict[str, Any]]:
